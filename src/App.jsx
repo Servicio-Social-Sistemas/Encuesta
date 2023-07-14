@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Header from "./components/Header";
+import Disclaimer from "./components/Disclaimer";
 import "./App.css";
 
 function App() {
@@ -21,13 +23,17 @@ function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-teal-500">Formulario</h1>
+      <Header />
+      <Disclaimer />
+      <div>
+        <button className="bg-teal-500" onClick={getLocation}>
+          Obtener ubicacion
+        </button>
 
-      <button onClick={getLocation}>Obtener ubicacion</button>
-
-      <h2>
-        Ubicacion: {lat}, {long}
-      </h2>
+        <h2>
+          Ubicacion: {lat}, {long}
+        </h2>
+      </div>
       <div></div>
     </>
   );
