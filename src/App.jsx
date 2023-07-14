@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Disclaimer from "./components/Disclaimer";
+import Form from "./components/Form";
 import "./App.css";
 
 function App() {
@@ -24,17 +25,19 @@ function App() {
   return (
     <>
       <Header />
-      <Disclaimer />
-      <div>
-        <button className="bg-teal-500" onClick={getLocation}>
-          Obtener ubicacion
-        </button>
+      <section className="flex content-center justify-center flex-col">
+        <Disclaimer />
+        <Form />
+        <div>
+          <button className="bg-teal-500" onClick={getLocation}>
+            Obtener ubicacion
+          </button>
 
-        <h2>
-          Ubicacion: {lat}, {long}
-        </h2>
-      </div>
-      <div></div>
+          <h2>
+            Ubicacion: {lat},{long}
+          </h2>
+        </div>
+      </section>
     </>
   );
 }
