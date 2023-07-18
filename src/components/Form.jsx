@@ -22,7 +22,7 @@ function Form() {
 
   const UserData = {
     response: {
-      respuesta1: "",
+      respuesta1: respuesta1,
     },
     ubication: {
       latitud: lat,
@@ -33,7 +33,10 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      axios.post("/api/data", UserData);
+      // Aqui va la paticion hacia el endpoint
+      // axios.post("/api/data", UserData);
+      console.log(UserData);
+      getLocation();
       toast.success("Datos enviados con éxito");
     } catch (error) {
       toast.error("Error, intente nuevamente");
@@ -43,6 +46,7 @@ function Form() {
   return (
     <form className="my-4" onSubmit={handleSubmit}>
       <h2 className="font-bold uppercase">Preguntas</h2>
+      {/* Las preguntas van aqui */}
 
       <button className="bg-pink-400 py-2 px-10 rounded-md text-white hover:bg-pink-500 duration-100">
         Enviar
