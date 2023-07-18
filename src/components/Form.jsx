@@ -1,4 +1,6 @@
 import { useState } from "react";
+import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 function Form() {
   const [lat, setLat] = useState("");
@@ -28,15 +30,24 @@ function Form() {
     },
   };
 
-  console.log(UserData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      axios.post("/api/data", UserData);
+      toast.success("Datos enviados con éxito");
+    } catch (error) {
+      toast.error("Error, intente nuevamente");
+    }
+  };
 
   return (
-    <form className="my-4">
+    <form className="my-4" onSubmit={handleSubmit}>
       <h2 className="font-bold uppercase">Preguntas</h2>
-      {/* Aqui va el contenido del formulario */}
+
       <button className="bg-pink-400 py-2 px-10 rounded-md text-white hover:bg-pink-500 duration-100">
         Enviar
       </button>
+      <Toaster position="top-center" reverseOrder={false} />
     </form>
   );
 }
