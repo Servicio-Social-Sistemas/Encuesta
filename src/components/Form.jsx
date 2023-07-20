@@ -1,52 +1,91 @@
 import { useState } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
+import questions from "./questions"; // Asegúrate de ajustar la ruta al archivo questions.js si es necesario
 
 function Form() {
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
+  const [userData, setUserData] = useState({
+    responses: [],
+    ubication: {
+      lat: "",
+      long: "",
+    },
+  });
 
   const getLocation = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLat(position.coords.latitude);
-          setLong(position.coords.longitude);
+          const { latitude, longitude } = position.coords;
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            ubication: {
+              lat: latitude.toString(),
+              long: longitude.toString(),
+            },
+          }));
         },
         (error) => {
           console.log("No se pudo obtener la ubicacion");
+          alert("Por favor, permita el acceso a la ubicación para continuar.");
         }
       );
     }
   };
 
-  const UserData = {
-    response: {
-      respuesta1: respuesta1,
-    },
-    ubication: {
-      latitud: lat,
-      longitud: long,
-    },
+  const handleAnswerSelection = (questionIndex, answer) => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      responses: [
+        ...prevUserData.responses,
+        { [`answer${questionIndex + 1}`]: answer },
+      ],
+    }));
+  };
+
+  const saveData = (data) => {
+    return axios.post(import.meta.env.VITE_API_URL, data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    getLocation();
+
+    if (userData.ubication.lat === "" || userData.ubication.long === "") {
+      return;
+    }
+
     try {
-      // Aqui va la paticion hacia el endpoint
-      // axios.post("/api/data", UserData);
-      console.log(UserData);
-      getLocation();
-      toast.success("Datos enviados con éxito");
+      await toast.promise(saveData(userData), {
+        loading: "Enviando...",
+        success: <b>¡Datos enviados con éxito!</b>,
+        error: <b>No se puden enviar los datos.</b>,
+      });
+      console.log(userData);
     } catch (error) {
-      toast.error("Error, intente nuevamente");
+      console.log("Error al guardar los datos:", error);
     }
   };
 
   return (
     <form className="my-4" onSubmit={handleSubmit}>
       <h2 className="font-bold uppercase">Preguntas</h2>
-      {/* Las preguntas van aqui */}
+      {questions.map((question, index) => (
+        <div key={index}>
+          <p>{question.question}</p>
+          {question.responses.map((response) => (
+            <label key={response.answer}>
+              <input
+                type="radio"
+                value={response.answer}
+                name={`question-${index}`}
+                onChange={() => handleAnswerSelection(index, response.answer)}
+              />
+              {response.text}
+            </label>
+          ))}
+        </div>
+      ))}
 
       <button className="bg-pink-400 py-2 px-10 rounded-md text-white hover:bg-pink-500 duration-100">
         Enviar
