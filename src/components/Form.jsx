@@ -59,7 +59,7 @@ function Form() {
       await toast.promise(saveData(userData), {
         loading: "Enviando...",
         success: <b>¡Datos enviados con éxito!</b>,
-        error: <b>No se puden enviar los datos.</b>,
+        error: <b>No se pueden enviar los datos.</b>,
       });
       console.log(userData);
     } catch (error) {
@@ -71,11 +71,15 @@ function Form() {
     <form className="my-4" onSubmit={handleSubmit}>
       <h2 className="font-bold uppercase">Preguntas</h2>
       {questions.map((question, index) => (
-        <div key={index}>
-          <p>{question.question}</p>
+        <div key={index} className="my-4">
+          <p className="font-bold">{question.question}</p>
           {question.responses.map((response) => (
-            <label key={response.answer}>
+            <label
+              className="flex content-center justify-center"
+              key={response.answer}
+            >
               <input
+                className="mr-1"
                 type="radio"
                 value={response.answer}
                 name={`question-${index}`}
