@@ -2,6 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import questions from "./questions"; // Asegúrate de ajustar la ruta al archivo questions.js si es necesario
+import styles from "../css/Form.css";
+import Card from '@mui/material/Card';
+import { CardContent, FormControl } from "@mui/material";
+import FormLabel from '@mui/material/FormLabel';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Snackbar from "@mui/material/Snackbar";
 
 function Form() {
   const [userData, setUserData] = useState({
@@ -71,8 +77,9 @@ function Form() {
     <form className="my-4" onSubmit={handleSubmit}>
       <h2 className="font-bold uppercase">Preguntas</h2>
       {questions.map((question, index) => (
-        <div key={index} className="my-4">
-          <p className="font-bold">{question.question}</p>
+        <Card key={index} className="my-4">
+          <CardContent>
+          <FormLabel>{question.question}</FormLabel>
           {question.responses.map((response) => (
             <label
               className="flex content-center justify-center"
@@ -88,11 +95,12 @@ function Form() {
               {response.text}
             </label>
           ))}
-        </div>
+          </CardContent>
+        </Card>
       ))}
 
-      <button className="bg-pink-400 py-2 px-10 rounded-md text-white hover:bg-pink-500 duration-100">
-        Enviar
+      <button className="button">
+        <span>Enviar</span>
       </button>
       <Toaster position="top-center" reverseOrder={false} />
     </form>
