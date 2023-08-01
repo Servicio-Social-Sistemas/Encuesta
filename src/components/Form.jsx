@@ -68,14 +68,14 @@ function Form() {
   };
 
   return (
-    <form className="my-4" onSubmit={handleSubmit}>
-      <h2 className="font-bold uppercase">Preguntas</h2>
+    <form className="my-4 font" onSubmit={handleSubmit}>
+      <h2 className="font-bold uppercase text-left">Encuesta</h2>
       {questions.map((question, index) => (
-        <div key={index} className="my-4">
-          <p className="font-bold">{question.question}</p>
+        <div key={index} className="my-4 text-left">
+          <p className="font-bold ">{question.question}</p>
           {question.responses.map((response) => (
             <label
-              className="flex content-center justify-center"
+              className="flex"
               key={response.answer}
             >
               <input
