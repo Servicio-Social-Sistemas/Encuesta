@@ -69,26 +69,35 @@ function Form() {
   };
 
   return (
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-      <div class="uppercase tracking-wide text-sm text-indigo-500 font-bold">preguntas</div>
+    <form class="px-8 pt-6 pb-8 text-left" onSubmit={handleSubmit}>
+      <div class="uppercase tracking-wide text-2xl text-indigo-500 font-bold">
+        Preguntas
+      </div>
       {questions.map((question, index) => (
-        <div key={index} class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-          <p class="text-indigo-900 font-bold text-xl mb-2">{question.question}</p>
-          {question.responses.map((response) => (
-            <label
-              class="text-gray-700 text-base"
-              key={response.answer}
-            >
-              <input
-                className="mr-1"
-                type="radio"
-                value={response.answer}
-                name={`question-${index}`}
-                onChange={() => handleAnswerSelection(index, response.answer)}
-              />
-              {response.text}
-            </label>
-          ))}
+        <div
+          key={index}
+          className=" m-auto border-r border-b border-l border-gray-400 sm:text-left lg:text-[100%] lg:border-l-0 lg:border-t lg:border-gray-400 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col leading-normal"
+        >
+          <p class="text-indigo-900 font-bold text-xl mb-2 ">
+            {question.question}
+          </p>
+          <div className="grid grid-cols-1 gap-4">
+            {question.responses.map((response) => (
+              <label className="cursor-pointer" key={response.answer}>
+                <input
+                  style={{ visibility: "hidden", height: 0, width: 0 }}
+                  className="peer sr-only"
+                  type="radio"
+                  value={response.answer}
+                  name={`question-${index}`}
+                  onChange={() => handleAnswerSelection(index, response.answer)}
+                />
+                <div className="w-full p-5 bg-white rounded-md hover:shadow ring-2 ring-transparent peer-checked:bg-blue-600 peer-checked:text-white peer-checked:ring-blue-950 peer-checked:ring-off">
+                  {response.text}
+                </div>
+              </label>
+            ))}
+          </div>
         </div>
       ))}
 
