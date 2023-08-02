@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import questions from "./questions"; // Asegúrate de ajustar la ruta al archivo questions.js si es necesario
-import styles from "../css/Form.css";
+import "../css/Form.css";
 
 function Form() {
   const [userData, setUserData] = useState({
@@ -28,7 +28,9 @@ function Form() {
         },
         (error) => {
           console.log("No se pudo obtener la ubicacion");
-          alert("Por favor, permita el acceso a la ubicación para continuar.");
+          toast.error(
+            "Por favor, permita el acceso a la ubicación para continuar."
+          );
         }
       );
     }
@@ -56,43 +58,61 @@ function Form() {
       return;
     }
 
+    const allResponsesSelected = questions.every((question, index) => {
+      const selectedResponse = userData.responses.find(
+        (response) => response[`answer${index + 1}`]
+      );
+      return selectedResponse !== undefined;
+    });
+
+    if (!allResponsesSelected) {
+      toast.error("Debe responder todas las preguntas");
+      return;
+    }
+
     try {
       await toast.promise(saveData(userData), {
         loading: "Enviando...",
         success: <b>¡Datos enviados con éxito!</b>,
         error: <b>No se pueden enviar los datos.</b>,
       });
-      console.log(userData);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.log("Error al guardar los datos:", error);
     }
   };
 
   return (
-    <form class="px-8 pt-6 pb-8 text-left" onSubmit={handleSubmit}>
-      <div class="uppercase tracking-wide text-2xl text-indigo-500 font-bold">
+    <form className="px-8 pt-6 pb-8 text-left" onSubmit={handleSubmit}>
+      <div className="uppercase tracking-wide text-2xl text-blue-900 font-bold">
         Preguntas
       </div>
       {questions.map((question, index) => (
         <div
           key={index}
-          className=" m-auto border-r border-b border-l border-gray-400 sm:text-left lg:text-[100%] lg:border-l-0 lg:border-t lg:border-gray-400 rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col leading-normal"
+          className=" m-auto sm:text-left lg:text-[100%] border-y border-gray-400 rounded-b lg:rounded-b-none lg:rounded-r py-4 lg:py-6 flex flex-col leading-normal"
         >
-          <p class="text-indigo-900 font-bold text-xl mb-2 ">
+          <p className="text-blue-900 font-bold text-xl mb-2">
             {question.question}
           </p>
-          <div className="grid grid-cols-1 gap-4">
-            {question.responses.map((response) => (
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {question.responses.map((response, responseIndex) => (
               <label className="cursor-pointer" key={response.answer}>
                 <input
-                  style={{ visibility: "hidden", height: 0, width: 0 }}
                   className="peer sr-only"
                   type="radio"
                   value={response.answer}
                   name={`question-${index}`}
+                  id={`response-${index}-${responseIndex}`} // Agrega un id único
                   onChange={() => handleAnswerSelection(index, response.answer)}
                 />
-                <div className="w-full p-5 bg-white rounded-md hover:shadow ring-2 ring-transparent peer-checked:bg-blue-600 peer-checked:text-white peer-checked:ring-blue-950 peer-checked:ring-off">
+                <div
+                  className="w-full p-5 bg-white rounded-md border hover:shadow ring-2 ring-transparent peer-checked:bg-blue-800 peer-checked:text-white peer-checked:ring-blue-950 peer-checked:ring-off"
+                  htmlFor={`response-${index}-${responseIndex}`} // Asocia el htmlFor al id
+                >
                   {response.text}
                 </div>
               </label>
@@ -101,7 +121,7 @@ function Form() {
         </div>
       ))}
 
-      <button class="button">
+      <button className="button">
         <span>Enviar</span>
       </button>
       <Toaster position="top-center" reverseOrder={false} />
