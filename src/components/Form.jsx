@@ -11,7 +11,7 @@ function Form() {
       long: "",
     },
   });
-
+ 
   const getLocation = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
