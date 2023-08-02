@@ -71,6 +71,7 @@ function Form() {
   return (
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
       <div class="uppercase tracking-wide text-sm text-indigo-500 font-bold">preguntas</div>
+      <br></br>
       {questions.map((question, index) => (
         <div key={index} class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
           <p class="text-indigo-900 font-bold text-xl mb-2">{question.question}</p>
@@ -92,7 +93,8 @@ function Form() {
         </div>
       ))}
 
-      <button class="button">
+      <br></br>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         <span>Enviar</span>
       </button>
       <Toaster position="top-center" reverseOrder={false} />
