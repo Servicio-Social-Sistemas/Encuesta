@@ -1,6 +1,6 @@
 const questions = [
   {
-    question: "Es usted...",
+    question: "¿Es usted...",
     responses: [
       { answer: "verde", text: "Empresario persona moral" },
       { answer: "rojo", text: "Empresario persona física" },
@@ -8,7 +8,7 @@ const questions = [
     ],
   },
   {
-    question: "Su negocio es: ",
+    question: "¿Su negocio es?",
     responses: [
       { answer: "verde", text: "Venta de servicios" },
       { answer: "rojo", text: "Venta de productos" },
@@ -16,15 +16,15 @@ const questions = [
     ],
   },
   {
-    question: "Si le ofrecieran algún crédito ¿Para qué lo usaría?",
+    question: "Si le ofrecieran algún crédito, ¿para qué lo usaría?",
     responses: [
       {
         answer: "verde",
-        text: "Inversion Fija (muebles, vehículos, equipos, mobiliario...)",
+        text: "Inversión Fija (muebles, vehículos, equipos, mobiliario...)",
       },
       {
         answer: "rojo",
-        text: "Inversion Diferida (instalaciones, remodelaciones, publicidad, anuncios, rentas...)",
+        text: "Inversión Diferida (instalaciones, remodelaciones, publicidad, anuncios, rentas...)",
       },
       {
         answer: "azul",
@@ -33,7 +33,7 @@ const questions = [
     ],
   },
   {
-    question: "Si puede conectarse via internet, ¿Qué dispositivo podría usar?",
+    question: "Si puede conectarse vía internet, ¿qué dispositivo podría usar?",
     responses: [
       { answer: "verde", text: "Computadora" },
       { answer: "rojo", text: "Celular" },
@@ -42,27 +42,26 @@ const questions = [
   },
   {
     question:
-      "¿Usted usaría comercio electrónico via una APP para vender su producto o servicio?",
+      "¿Usaría comercio electrónico a través de una APP para vender su producto o servicio?",
     responses: [
-      { answer: "verde", text: "Si" },
+      { answer: "verde", text: "Sí" },
       { answer: "rojo", text: "No" },
       { answer: "azul", text: "No me sirve para mis ventas" },
     ],
   },
   {
-    question:
-      "¿Usted cuenta con una terminal para el cobro con tarjeta de crédito?",
+    question: "¿Cuenta con una terminal para el cobro con tarjeta de crédito?",
     responses: [
-      { answer: "verde", text: "Si" },
+      { answer: "verde", text: "Sí" },
       { answer: "rojo", text: "No" },
       { answer: "azul", text: "No me sirve" },
     ],
   },
   {
-    question: "¿Que tipo de capacitación le interesaría más para su negocio?",
+    question: "¿Qué tipo de capacitación le interesaría más para su negocio?",
     responses: [
       { answer: "verde", text: "Administrar sus finanzas" },
-      { answer: "rojo", text: "Comercializacion en linea" },
+      { answer: "rojo", text: "Comercialización en línea" },
       { answer: "azul", text: "Ambas" },
     ],
   },
