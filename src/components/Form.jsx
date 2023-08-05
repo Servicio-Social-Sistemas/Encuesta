@@ -37,13 +37,17 @@ function Form() {
   };
 
   const handleAnswerSelection = (questionIndex, answer) => {
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      responses: [
-        ...prevUserData.responses,
-        { [`answer${questionIndex + 1}`]: answer },
-      ],
-    }));
+    setUserData((prevUserData) => {
+      const updatedResponses = [...prevUserData.responses];
+      updatedResponses[questionIndex] = {
+        [`answer${questionIndex + 1}`]: answer,
+      };
+
+      return {
+        ...prevUserData,
+        responses: updatedResponses,
+      };
+    });
   };
 
   const saveData = (data) => {
@@ -53,6 +57,8 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     getLocation();
+
+    console.log(userData.response);
 
     if (userData.ubication.lat === "" || userData.ubication.long === "") {
       return;
