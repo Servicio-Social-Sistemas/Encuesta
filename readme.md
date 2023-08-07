@@ -27,3 +27,7 @@ yarn run dev
 ```
 
 Listo ya tienes tu servidor de desarrollo.
+
+Uso del Proyecto.
+
+Con el servidor de desarrollo en ejecución, podrás acceder a la aplicación a través de tu navegador web en la dirección http://localhost:3000 (por defecto, a menos que se especifique lo contrario). Aquí podrás interactuar con la encuesta y explorar sus características.
