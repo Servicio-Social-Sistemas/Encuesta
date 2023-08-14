@@ -10,9 +10,9 @@ const questions = [
   {
     question: "¿Su negocio es?",
     responses: [
-      { answer: "verde", text: "Venta de servicios" },
-      { answer: "rojo", text: "Venta de productos" },
-      { answer: "azul", text: "Comercio" },
+      { answer: "verde", text: "Sector primario (campo, ganadería, minería)" },
+      { answer: "rojo", text: "Sector secundario (industrial)" },
+      { answer: "azul", text: "Sector terciario (comercio o servicios)" },
     ],
   },
   {
